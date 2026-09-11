@@ -287,7 +287,23 @@
     <script>
 
         function showPage(page, button) {
+function toggleStatus() {
 
+    const statusText = document.getElementById("statusText");
+    const statusButton = document.getElementById("statusButton");
+
+    if (statusText.innerText.includes("ONLINE")) {
+
+        statusText.innerText = "🔴 ChatGGS is currently OFFLINE";
+        statusButton.innerText = "Turn ChatGGS ONLINE";
+
+    } else {
+
+        statusText.innerText = "🟢 ChatGGS is currently ONLINE";
+        statusButton.innerText = "Turn ChatGGS OFFLINE";
+
+    }
+}
             document.getElementById("dashboard").classList.add("hidden");
             document.getElementById("chats").classList.add("hidden");
             document.getElementById("users").classList.add("hidden");
