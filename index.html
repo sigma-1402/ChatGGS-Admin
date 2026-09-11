@@ -19,6 +19,8 @@
             display: flex;
         }
 
+        /* Sidebar */
+
         .sidebar {
             width: 240px;
             height: 100vh;
@@ -62,6 +64,8 @@
             font-weight: bold;
         }
 
+        /* Main */
+
         .main {
             flex: 1;
             padding: 35px;
@@ -82,6 +86,8 @@
             margin-top: 7px;
         }
 
+        /* Cards */
+
         .card {
             background: white;
             border: 1px solid #e5e5e5;
@@ -89,6 +95,8 @@
             padding: 20px;
             margin-bottom: 20px;
         }
+
+        /* Status */
 
         .status {
             font-size: 22px;
@@ -98,6 +106,12 @@
         .green {
             color: #16a34a;
         }
+
+        .red {
+            color: #dc2626;
+        }
+
+        /* Statistics */
 
         .stats {
             display: grid;
@@ -116,11 +130,32 @@
             font-size: 14px;
         }
 
+        /* Settings button */
+
+        .status-button {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #222;
+            color: white;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .status-button:hover {
+            background: #444;
+        }
+
+        /* Hide pages */
+
         .hidden {
             display: none;
         }
 
+        /* Mobile */
+
         @media (max-width: 700px) {
+
             .sidebar {
                 width: 190px;
             }
@@ -132,11 +167,14 @@
             .stats {
                 grid-template-columns: 1fr;
             }
+
         }
     </style>
 </head>
 
 <body>
+
+    <!-- Sidebar -->
 
     <aside class="sidebar">
 
@@ -145,26 +183,41 @@
             <span>Administrator</span>
         </div>
 
-        <button class="nav-button active" onclick="showPage('dashboard', this)">
+        <button
+            class="nav-button active"
+            onclick="showPage('dashboard', this)"
+        >
             🏠 Dashboard
         </button>
 
-        <button class="nav-button" onclick="showPage('chats', this)">
+        <button
+            class="nav-button"
+            onclick="showPage('chats', this)"
+        >
             💬 Chats
         </button>
 
-        <button class="nav-button" onclick="showPage('users', this)">
+        <button
+            class="nav-button"
+            onclick="showPage('users', this)"
+        >
             👥 Users
         </button>
 
-        <button class="nav-button" onclick="showPage('settings', this)">
+        <button
+            class="nav-button"
+            onclick="showPage('settings', this)"
+        >
             ⚙️ Settings
         </button>
 
     </aside>
 
 
+    <!-- Main content -->
+
     <main class="main">
+
 
         <!-- Dashboard -->
 
@@ -174,6 +227,7 @@
                 <h1>Dashboard</h1>
                 <p>Manage your ChatGGS service.</p>
             </div>
+
 
             <div class="card">
 
@@ -188,136 +242,261 @@
 
             </div>
 
+
             <div class="stats">
 
                 <div class="card">
-                    <div class="stat-label">Users</div>
-                    <div class="stat-number">1</div>
+
+                    <div class="stat-label">
+                        Users
+                    </div>
+
+                    <div class="stat-number">
+                        1
+                    </div>
+
                 </div>
 
-                <div class="card">
-                    <div class="stat-label">Messages</div>
-                    <div class="stat-number">3</div>
-                </div>
 
                 <div class="card">
-                    <div class="stat-label">Service status</div>
-                    <div class="stat-number">🟢</div>
+
+                    <div class="stat-label">
+                        Messages
+                    </div>
+
+                    <div class="stat-number">
+                        3
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="stat-label">
+                        Service status
+                    </div>
+
+                    <div
+                        class="stat-number"
+                        id="dashboardStatus"
+                    >
+                        🟢
+                    </div>
+
                 </div>
 
             </div>
 
         </section>
+
 
 
         <!-- Chats -->
 
-        <section id="chats" class="hidden">
+        <section
+            id="chats"
+            class="hidden"
+        >
 
             <div class="header">
+
                 <h1>Chats</h1>
-                <p>View ChatGGS conversations.</p>
+
+                <p>
+                    View ChatGGS conversations.
+                </p>
+
             </div>
 
+
             <div class="card">
+
                 💬 No real chats yet.
+
             </div>
 
         </section>
+
 
 
         <!-- Users -->
 
-        <section id="users" class="hidden">
+        <section
+            id="users"
+            class="hidden"
+        >
 
             <div class="header">
+
                 <h1>Users</h1>
-                <p>Manage ChatGGS users.</p>
+
+                <p>
+                    Manage ChatGGS users.
+                </p>
+
             </div>
 
+
             <div class="card">
+
                 👤 User #1
+
                 <br>
-                <span class="stat-label">Currently online</span>
+
+                <span class="stat-label">
+                    Currently online
+                </span>
+
             </div>
 
         </section>
 
 
+
         <!-- Settings -->
 
-        <section id="settings" class="hidden">
-
-    <div class="header">
-        <h1>Settings</h1>
-        <p>Configure ChatGGS.</p>
-    </div>
-
-    <div class="card">
-
-        <h2>ChatGGS availability</h2>
-
-        <p id="statusText">
-            🟢 ChatGGS is currently ONLINE
-        </p>
-
-        <button
-            id="statusButton"
-            onclick="toggleStatus()"
-            style="
-                padding: 12px 18px;
-                border: none;
-                border-radius: 8px;
-                background: #222;
-                color: white;
-                cursor: pointer;
-                font-size: 15px;
-            "
+        <section
+            id="settings"
+            class="hidden"
         >
-            Turn ChatGGS OFFLINE
-        </button>
 
-    </div>
+            <div class="header">
 
-</section>
+                <h1>Settings</h1>
+
+                <p>
+                    Configure ChatGGS.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h2>
+                    ChatGGS availability
+                </h2>
+
+
+                <p id="statusText">
+
+                    🟢 ChatGGS is currently ONLINE
+
+                </p>
+
+
+                <button
+                    id="statusButton"
+                    class="status-button"
+                    onclick="toggleStatus()"
+                >
+
+                    Turn ChatGGS OFFLINE
+
+                </button>
+
+            </div>
+
+        </section>
 
     </main>
 
 
+
+    <!-- JavaScript -->
+
     <script>
 
+        /*
+         * Switch between Dashboard,
+         * Chats, Users and Settings.
+         */
+
         function showPage(page, button) {
-function toggleStatus() {
 
-    const statusText = document.getElementById("statusText");
-    const statusButton = document.getElementById("statusButton");
+            document
+                .getElementById("dashboard")
+                .classList.add("hidden");
 
-    if (statusText.innerText.includes("ONLINE")) {
+            document
+                .getElementById("chats")
+                .classList.add("hidden");
 
-        statusText.innerText = "🔴 ChatGGS is currently OFFLINE";
-        statusButton.innerText = "Turn ChatGGS ONLINE";
+            document
+                .getElementById("users")
+                .classList.add("hidden");
 
-    } else {
+            document
+                .getElementById("settings")
+                .classList.add("hidden");
 
-        statusText.innerText = "🟢 ChatGGS is currently ONLINE";
-        statusButton.innerText = "Turn ChatGGS OFFLINE";
 
-    }
-}
-            document.getElementById("dashboard").classList.add("hidden");
-            document.getElementById("chats").classList.add("hidden");
-            document.getElementById("users").classList.add("hidden");
-            document.getElementById("settings").classList.add("hidden");
+            document
+                .getElementById(page)
+                .classList.remove("hidden");
 
-            document.getElementById(page).classList.remove("hidden");
 
-            const buttons = document.querySelectorAll(".nav-button");
+            const buttons =
+                document.querySelectorAll(".nav-button");
+
 
             buttons.forEach(function(btn) {
+
                 btn.classList.remove("active");
+
             });
 
+
             button.classList.add("active");
+
+        }
+
+
+
+        /*
+         * Switch ChatGGS between
+         * ONLINE and OFFLINE.
+         */
+
+        function toggleStatus() {
+
+            const statusText =
+                document.getElementById("statusText");
+
+            const statusButton =
+                document.getElementById("statusButton");
+
+            const dashboardStatus =
+                document.getElementById("dashboardStatus");
+
+
+            if (statusText.innerText.includes("ONLINE")) {
+
+                statusText.innerText =
+                    "🔴 ChatGGS is currently OFFLINE";
+
+                statusButton.innerText =
+                    "Turn ChatGGS ONLINE";
+
+                dashboardStatus.innerText =
+                    "🔴";
+
+            }
+
+            else {
+
+                statusText.innerText =
+                    "🟢 ChatGGS is currently ONLINE";
+
+                statusButton.innerText =
+                    "Turn ChatGGS OFFLINE";
+
+                dashboardStatus.innerText =
+                    "🟢";
+
+            }
+
         }
 
     </script>
