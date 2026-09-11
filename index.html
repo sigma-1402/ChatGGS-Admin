@@ -248,16 +248,38 @@
 
         <section id="settings" class="hidden">
 
-            <div class="header">
-                <h1>Settings</h1>
-                <p>Configure ChatGGS.</p>
-            </div>
+    <div class="header">
+        <h1>Settings</h1>
+        <p>Configure ChatGGS.</p>
+    </div>
 
-            <div class="card">
-                ⚙️ ChatGGS settings will go here.
-            </div>
+    <div class="card">
 
-        </section>
+        <h2>ChatGGS availability</h2>
+
+        <p id="statusText">
+            🟢 ChatGGS is currently ONLINE
+        </p>
+
+        <button
+            id="statusButton"
+            onclick="toggleStatus()"
+            style="
+                padding: 12px 18px;
+                border: none;
+                border-radius: 8px;
+                background: #222;
+                color: white;
+                cursor: pointer;
+                font-size: 15px;
+            "
+        >
+            Turn ChatGGS OFFLINE
+        </button>
+
+    </div>
+
+</section>
 
     </main>
 
