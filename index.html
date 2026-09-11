@@ -1,293 +1,288 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatGGS Admin</title>
 
-```
-<style>
-    * {
-        box-sizing: border-box;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f7f7f8;
-        color: #222;
-        height: 100vh;
-        display: flex;
-    }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f7f8;
+            color: #222;
+            height: 100vh;
+            display: flex;
+        }
 
-    /* Sidebar */
-    .sidebar {
-        width: 240px;
-        height: 100vh;
-        background: #ffffff;
-        border-right: 1px solid #e5e5e5;
-        padding: 20px 12px;
-    }
-
-    .logo {
-        font-size: 20px;
-        font-weight: bold;
-        padding: 10px 12px 25px;
-    }
-
-    .logo span {
-        font-size: 12px;
-        color: #777;
-        display: block;
-        margin-top: 4px;
-        font-weight: normal;
-    }
-
-    .nav-button {
-        width: 100%;
-        border: none;
-        background: transparent;
-        padding: 13px 12px;
-        text-align: left;
-        border-radius: 8px;
-        font-size: 15px;
-        cursor: pointer;
-        margin-bottom: 4px;
-    }
-
-    .nav-button:hover {
-        background: #f1f1f1;
-    }
-
-    .nav-button.active {
-        background: #e8e8e8;
-        font-weight: bold;
-    }
-
-    /* Main area */
-    .main {
-        flex: 1;
-        padding: 35px;
-        overflow-y: auto;
-    }
-
-    .header {
-        margin-bottom: 30px;
-    }
-
-    .header h1 {
-        margin: 0;
-        font-size: 28px;
-    }
-
-    .header p {
-        color: #777;
-        margin-top: 7px;
-    }
-
-    /* Status */
-    .status-card {
-        background: white;
-        border: 1px solid #e5e5e5;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 25px;
-    }
-
-    .status-title {
-        font-size: 14px;
-        color: #777;
-        margin-bottom: 10px;
-    }
-
-    .status-online {
-        font-size: 22px;
-        font-weight: bold;
-    }
-
-    .green-dot {
-        color: #16a34a;
-    }
-
-    /* Statistics */
-    .stats {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 18px;
-        margin-bottom: 25px;
-    }
-
-    .stat-card {
-        background: white;
-        border: 1px solid #e5e5e5;
-        border-radius: 12px;
-        padding: 20px;
-    }
-
-    .stat-label {
-        color: #777;
-        font-size: 14px;
-    }
-
-    .stat-number {
-        font-size: 30px;
-        font-weight: bold;
-        margin-top: 8px;
-    }
-
-    /* Activity */
-    .activity {
-        background: white;
-        border: 1px solid #e5e5e5;
-        border-radius: 12px;
-        padding: 20px;
-    }
-
-    .activity h2 {
-        font-size: 18px;
-        margin-top: 0;
-    }
-
-    .activity-item {
-        padding: 15px 0;
-        border-top: 1px solid #eeeeee;
-    }
-
-    .activity-time {
-        color: #888;
-        font-size: 12px;
-        margin-top: 4px;
-    }
-
-    /* Responsive */
-    @media (max-width: 700px) {
         .sidebar {
-            width: 190px;
+            width: 240px;
+            height: 100vh;
+            background: white;
+            border-right: 1px solid #e5e5e5;
+            padding: 20px 12px;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px 12px 25px;
+        }
+
+        .logo span {
+            font-size: 12px;
+            color: #777;
+            display: block;
+            margin-top: 4px;
+            font-weight: normal;
+        }
+
+        .nav-button {
+            width: 100%;
+            border: none;
+            background: transparent;
+            padding: 13px 12px;
+            text-align: left;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            margin-bottom: 4px;
+        }
+
+        .nav-button:hover {
+            background: #f1f1f1;
+        }
+
+        .nav-button.active {
+            background: #e8e8e8;
+            font-weight: bold;
         }
 
         .main {
+            flex: 1;
+            padding: 35px;
+            overflow-y: auto;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .header p {
+            color: #777;
+            margin-top: 7px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
             padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .status {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .green {
+            color: #16a34a;
         }
 
         .stats {
-            grid-template-columns: 1fr;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
         }
-    }
-</style>
-```
 
+        .stat-number {
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .stat-label {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 700px) {
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                padding: 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-```
-<!-- Sidebar -->
-<aside class="sidebar">
+    <aside class="sidebar">
 
-    <div class="logo">
-        ChatGGS
-        <span>Administrator</span>
-    </div>
-
-    <button class="nav-button active">
-        🏠 Dashboard
-    </button>
-
-    <button class="nav-button">
-        💬 Chats
-    </button>
-
-    <button class="nav-button">
-        👥 Users
-    </button>
-
-    <button class="nav-button">
-        ⚙️ Settings
-    </button>
-
-</aside>
-
-<!-- Main dashboard -->
-<main class="main">
-
-    <div class="header">
-        <h1>Dashboard</h1>
-        <p>Manage your ChatGGS service.</p>
-    </div>
-
-    <!-- Status -->
-    <div class="status-card">
-
-        <div class="status-title">
-            ChatGGS status
+        <div class="logo">
+            ChatGGS
+            <span>Administrator</span>
         </div>
 
-        <div class="status-online">
-            <span class="green-dot">●</span>
-            ONLINE
-        </div>
+        <button class="nav-button active" onclick="showPage('dashboard', this)">
+            🏠 Dashboard
+        </button>
 
-    </div>
+        <button class="nav-button" onclick="showPage('chats', this)">
+            💬 Chats
+        </button>
 
-    <!-- Statistics -->
-    <div class="stats">
+        <button class="nav-button" onclick="showPage('users', this)">
+            👥 Users
+        </button>
 
-        <div class="stat-card">
-            <div class="stat-label">
-                Users
+        <button class="nav-button" onclick="showPage('settings', this)">
+            ⚙️ Settings
+        </button>
+
+    </aside>
+
+
+    <main class="main">
+
+        <!-- Dashboard -->
+
+        <section id="dashboard">
+
+            <div class="header">
+                <h1>Dashboard</h1>
+                <p>Manage your ChatGGS service.</p>
             </div>
 
-            <div class="stat-number">
-                1
-            </div>
-        </div>
+            <div class="card">
 
-        <div class="stat-card">
-            <div class="stat-label">
-                Messages
-            </div>
+                <div class="stat-label">
+                    ChatGGS status
+                </div>
 
-            <div class="stat-number">
-                3
-            </div>
-        </div>
+                <div class="status">
+                    <span class="green">●</span>
+                    ONLINE
+                </div>
 
-        <div class="stat-card">
-            <div class="stat-label">
-                Service status
             </div>
 
-            <div class="stat-number">
-                🟢
+            <div class="stats">
+
+                <div class="card">
+                    <div class="stat-label">Users</div>
+                    <div class="stat-number">1</div>
+                </div>
+
+                <div class="card">
+                    <div class="stat-label">Messages</div>
+                    <div class="stat-number">3</div>
+                </div>
+
+                <div class="card">
+                    <div class="stat-label">Service status</div>
+                    <div class="stat-number">🟢</div>
+                </div>
+
             </div>
-        </div>
 
-    </div>
+        </section>
 
-    <!-- Activity -->
-    <div class="activity">
 
-        <h2>Recent activity</h2>
+        <!-- Chats -->
 
-        <div class="activity-item">
-            ChatGGS started
-            <div class="activity-time">
-                Just now
+        <section id="chats" class="hidden">
+
+            <div class="header">
+                <h1>Chats</h1>
+                <p>View ChatGGS conversations.</p>
             </div>
-        </div>
 
-        <div class="activity-item">
-            Administrator dashboard created
-            <div class="activity-time">
-                Just now
+            <div class="card">
+                💬 No real chats yet.
             </div>
-        </div>
 
-    </div>
+        </section>
 
-</main>
-```
+
+        <!-- Users -->
+
+        <section id="users" class="hidden">
+
+            <div class="header">
+                <h1>Users</h1>
+                <p>Manage ChatGGS users.</p>
+            </div>
+
+            <div class="card">
+                👤 User #1
+                <br>
+                <span class="stat-label">Currently online</span>
+            </div>
+
+        </section>
+
+
+        <!-- Settings -->
+
+        <section id="settings" class="hidden">
+
+            <div class="header">
+                <h1>Settings</h1>
+                <p>Configure ChatGGS.</p>
+            </div>
+
+            <div class="card">
+                ⚙️ ChatGGS settings will go here.
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        function showPage(page, button) {
+
+            document.getElementById("dashboard").classList.add("hidden");
+            document.getElementById("chats").classList.add("hidden");
+            document.getElementById("users").classList.add("hidden");
+            document.getElementById("settings").classList.add("hidden");
+
+            document.getElementById(page).classList.remove("hidden");
+
+            const buttons = document.querySelectorAll(".nav-button");
+
+            buttons.forEach(function(btn) {
+                btn.classList.remove("active");
+            });
+
+            button.classList.add("active");
+        }
+
+    </script>
 
 </body>
 </html>
