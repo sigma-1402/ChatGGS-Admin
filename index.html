@@ -461,28 +461,24 @@
 
         function toggleStatus() {
 
-            const statusText =
-                document.getElementById("statusText");
+    const statusText = document.getElementById("statusText");
+    const statusButton = document.getElementById("statusButton");
+    const dashboardStatus = document.getElementById("dashboardStatus");
 
-            const statusButton =
-                document.getElementById("statusButton");
+    if (statusButton.innerText === "Turn ChatGGS OFFLINE") {
 
-            const dashboardStatus =
-                document.getElementById("dashboardStatus");
+        statusText.textContent = "🔴 ChatGGS is currently OFFLINE";
+        statusButton.textContent = "Turn ChatGGS ONLINE";
+        dashboardStatus.textContent = "🔴";
 
+    } else {
 
-            if (statusText.innerText.includes("ONLINE")) {
+        statusText.textContent = "🟢 ChatGGS is currently ONLINE";
+        statusButton.textContent = "Turn ChatGGS OFFLINE";
+        dashboardStatus.textContent = "🟢";
 
-                statusText.innerText =
-                    "🔴 ChatGGS is currently OFFLINE";
-
-                statusButton.innerText =
-                    "Turn ChatGGS ONLINE";
-
-                dashboardStatus.innerText =
-                    "🔴";
-
-            }
+    }
+}
 
             else {
 
