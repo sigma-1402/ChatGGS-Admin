@@ -19,8 +19,6 @@
             display: flex;
         }
 
-        /* Sidebar */
-
         .sidebar {
             width: 240px;
             height: 100vh;
@@ -64,8 +62,6 @@
             font-weight: bold;
         }
 
-        /* Main */
-
         .main {
             flex: 1;
             padding: 35px;
@@ -86,8 +82,6 @@
             margin-top: 7px;
         }
 
-        /* Cards */
-
         .card {
             background: white;
             border: 1px solid #e5e5e5;
@@ -95,8 +89,6 @@
             padding: 20px;
             margin-bottom: 20px;
         }
-
-        /* Status */
 
         .status {
             font-size: 22px;
@@ -106,12 +98,6 @@
         .green {
             color: #16a34a;
         }
-
-        .red {
-            color: #dc2626;
-        }
-
-        /* Statistics */
 
         .stats {
             display: grid;
@@ -130,7 +116,9 @@
             font-size: 14px;
         }
 
-        /* Settings button */
+        .hidden {
+            display: none;
+        }
 
         .status-button {
             padding: 12px 18px;
@@ -145,14 +133,6 @@
         .status-button:hover {
             background: #444;
         }
-
-        /* Hide pages */
-
-        .hidden {
-            display: none;
-        }
-
-        /* Mobile */
 
         @media (max-width: 700px) {
 
@@ -174,7 +154,7 @@
 
 <body>
 
-    <!-- Sidebar -->
+    <!-- SIDEBAR -->
 
     <aside class="sidebar">
 
@@ -214,12 +194,12 @@
     </aside>
 
 
-    <!-- Main content -->
+    <!-- MAIN -->
 
     <main class="main">
 
 
-        <!-- Dashboard -->
+        <!-- DASHBOARD -->
 
         <section id="dashboard">
 
@@ -228,20 +208,18 @@
                 <p>Manage your ChatGGS service.</p>
             </div>
 
-
             <div class="card">
 
                 <div class="stat-label">
                     ChatGGS status
                 </div>
 
-                <div class="status">
+                <div class="status" id="dashboardStatusText">
                     <span class="green">●</span>
                     ONLINE
                 </div>
 
             </div>
-
 
             <div class="stats">
 
@@ -257,7 +235,6 @@
 
                 </div>
 
-
                 <div class="card">
 
                     <div class="stat-label">
@@ -269,7 +246,6 @@
                     </div>
 
                 </div>
-
 
                 <div class="card">
 
@@ -291,8 +267,7 @@
         </section>
 
 
-
-        <!-- Chats -->
+        <!-- CHATS -->
 
         <section
             id="chats"
@@ -300,27 +275,18 @@
         >
 
             <div class="header">
-
                 <h1>Chats</h1>
-
-                <p>
-                    View ChatGGS conversations.
-                </p>
-
+                <p>View ChatGGS conversations.</p>
             </div>
 
-
             <div class="card">
-
                 💬 No real chats yet.
-
             </div>
 
         </section>
 
 
-
-        <!-- Users -->
+        <!-- USERS -->
 
         <section
             id="users"
@@ -328,15 +294,9 @@
         >
 
             <div class="header">
-
                 <h1>Users</h1>
-
-                <p>
-                    Manage ChatGGS users.
-                </p>
-
+                <p>Manage ChatGGS users.</p>
             </div>
-
 
             <div class="card">
 
@@ -353,8 +313,7 @@
         </section>
 
 
-
-        <!-- Settings -->
+        <!-- SETTINGS -->
 
         <section
             id="settings"
@@ -362,15 +321,9 @@
         >
 
             <div class="header">
-
                 <h1>Settings</h1>
-
-                <p>
-                    Configure ChatGGS.
-                </p>
-
+                <p>Configure ChatGGS.</p>
             </div>
-
 
             <div class="card">
 
@@ -378,22 +331,16 @@
                     ChatGGS availability
                 </h2>
 
-
                 <p id="statusText">
-
                     🟢 ChatGGS is currently ONLINE
-
                 </p>
-
 
                 <button
                     id="statusButton"
                     class="status-button"
                     onclick="toggleStatus()"
                 >
-
                     Turn ChatGGS OFFLINE
-
                 </button>
 
             </div>
@@ -403,15 +350,12 @@
     </main>
 
 
-
-    <!-- JavaScript -->
+    <!-- JAVASCRIPT -->
 
     <script>
 
-        /*
-         * Switch between Dashboard,
-         * Chats, Users and Settings.
-         */
+        let chatGGSOnline = true;
+
 
         function showPage(page, button) {
 
@@ -442,9 +386,7 @@
 
 
             buttons.forEach(function(btn) {
-
                 btn.classList.remove("active");
-
             });
 
 
@@ -453,43 +395,51 @@
         }
 
 
-
-        /*
-         * Switch ChatGGS between
-         * ONLINE and OFFLINE.
-         */
-
         function toggleStatus() {
 
-    const statusText = document.getElementById("statusText");
-    const statusButton = document.getElementById("statusButton");
-    const dashboardStatus = document.getElementById("dashboardStatus");
+            chatGGSOnline = !chatGGSOnline;
 
-    if (statusButton.innerText === "Turn ChatGGS OFFLINE") {
 
-        statusText.textContent = "🔴 ChatGGS is currently OFFLINE";
-        statusButton.textContent = "Turn ChatGGS ONLINE";
-        dashboardStatus.textContent = "🔴";
+            const statusText =
+                document.getElementById("statusText");
 
-    } else {
+            const statusButton =
+                document.getElementById("statusButton");
 
-        statusText.textContent = "🟢 ChatGGS is currently ONLINE";
-        statusButton.textContent = "Turn ChatGGS OFFLINE";
-        dashboardStatus.textContent = "🟢";
+            const dashboardStatus =
+                document.getElementById("dashboardStatus");
 
-    }
-}
+            const dashboardStatusText =
+                document.getElementById("dashboardStatusText");
 
-            else {
 
-                statusText.innerText =
+            if (chatGGSOnline) {
+
+                statusText.textContent =
                     "🟢 ChatGGS is currently ONLINE";
 
-                statusButton.innerText =
+                statusButton.textContent =
                     "Turn ChatGGS OFFLINE";
 
-                dashboardStatus.innerText =
+                dashboardStatus.textContent =
                     "🟢";
+
+                dashboardStatusText.innerHTML =
+                    '<span class="green">●</span> ONLINE';
+
+            } else {
+
+                statusText.textContent =
+                    "🔴 ChatGGS is currently OFFLINE";
+
+                statusButton.textContent =
+                    "Turn ChatGGS ONLINE";
+
+                dashboardStatus.textContent =
+                    "🔴";
+
+                dashboardStatusText.innerHTML =
+                    "🔴 OFFLINE";
 
             }
 
