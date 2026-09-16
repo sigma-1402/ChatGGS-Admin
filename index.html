@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChatGGS Admin</title>
 
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
         * {
             box-sizing: border-box;
@@ -99,6 +102,10 @@
             color: #16a34a;
         }
 
+        .red {
+            color: #dc2626;
+        }
+
         .stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -134,8 +141,17 @@
             background: #444;
         }
 
-        @media (max-width: 700px) {
+        .status-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
 
+        .error {
+            color: #dc2626;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 700px) {
             .sidebar {
                 width: 190px;
             }
@@ -147,7 +163,6 @@
             .stats {
                 grid-template-columns: 1fr;
             }
-
         }
     </style>
 </head>
@@ -198,7 +213,6 @@
 
     <main class="main">
 
-
         <!-- DASHBOARD -->
 
         <section id="dashboard">
@@ -214,7 +228,10 @@
                     ChatGGS status
                 </div>
 
-                <div class="status" id="dashboardStatusText">
+                <div
+                    class="status"
+                    id="dashboardStatusText"
+                >
                     <span class="green">●</span>
                     ONLINE
                 </div>
@@ -332,16 +349,22 @@
                 </h2>
 
                 <p id="statusText">
-                    🟢 ChatGGS is currently ONLINE
+                    Checking ChatGGS status...
                 </p>
 
                 <button
                     id="statusButton"
                     class="status-button"
                     onclick="toggleStatus()"
+                    disabled
                 >
-                    Turn ChatGGS OFFLINE
+                    Loading...
                 </button>
+
+                <div
+                    id="errorText"
+                    class="error"
+                ></div>
 
             </div>
 
@@ -354,8 +377,29 @@
 
     <script>
 
+        /* ---------------------------------
+           SUPABASE SETUP
+        --------------------------------- */
+
+        const SUPABASE_URL =
+            "https://yzzejlfrlecakqrjtimg.supabase.co";
+
+        const SUPABASE_PUBLISHABLE_KEY =
+            "PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
+        const supabaseClient =
+            supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_PUBLISHABLE_KEY
+            );
+
+
         let chatGGSOnline = true;
 
+
+        /* ---------------------------------
+           MENU
+        --------------------------------- */
 
         function showPage(page, button) {
 
@@ -375,7 +419,6 @@
                 .getElementById("settings")
                 .classList.add("hidden");
 
-
             document
                 .getElementById(page)
                 .classList.remove("hidden");
@@ -384,21 +427,19 @@
             const buttons =
                 document.querySelectorAll(".nav-button");
 
-
             buttons.forEach(function(btn) {
                 btn.classList.remove("active");
             });
 
-
             button.classList.add("active");
-
         }
 
 
-        function toggleStatus() {
+        /* ---------------------------------
+           DISPLAY STATUS
+        --------------------------------- */
 
-            chatGGSOnline = !chatGGSOnline;
-
+        function updateStatusDisplay() {
 
             const statusText =
                 document.getElementById("statusText");
@@ -439,11 +480,126 @@
                     "🔴";
 
                 dashboardStatusText.innerHTML =
-                    "🔴 OFFLINE";
+                    '<span class="red">●</span> OFFLINE';
 
             }
-
         }
+
+
+        /* ---------------------------------
+           LOAD STATUS FROM SUPABASE
+        --------------------------------- */
+
+        async function loadStatus() {
+
+            const statusText =
+                document.getElementById("statusText");
+
+            const statusButton =
+                document.getElementById("statusButton");
+
+            const errorText =
+                document.getElementById("errorText");
+
+
+            const result =
+                await supabaseClient
+                    .from("settings")
+                    .select("online")
+                    .eq("id", 1)
+                    .single();
+
+
+            if (result.error) {
+
+                console.error(result.error);
+
+                statusText.textContent =
+                    "⚠️ Could not load ChatGGS status.";
+
+                errorText.textContent =
+                    "Supabase error: " +
+                    result.error.message;
+
+                statusButton.disabled = true;
+
+                return;
+            }
+
+
+            chatGGSOnline = result.data.online;
+
+            errorText.textContent = "";
+
+            statusButton.disabled = false;
+
+            updateStatusDisplay();
+        }
+
+
+        /* ---------------------------------
+           TOGGLE STATUS
+        --------------------------------- */
+
+        async function toggleStatus() {
+
+            const statusButton =
+                document.getElementById("statusButton");
+
+            const errorText =
+                document.getElementById("errorText");
+
+
+            const newStatus =
+                !chatGGSOnline;
+
+
+            statusButton.disabled = true;
+
+            statusButton.textContent =
+                "Saving...";
+
+            errorText.textContent = "";
+
+
+            const result =
+                await supabaseClient
+                    .from("settings")
+                    .update({
+                        online: newStatus
+                    })
+                    .eq("id", 1);
+
+
+            if (result.error) {
+
+                console.error(result.error);
+
+                errorText.textContent =
+                    "Could not save status: " +
+                    result.error.message;
+
+                statusButton.disabled = false;
+
+                updateStatusDisplay();
+
+                return;
+            }
+
+
+            chatGGSOnline = newStatus;
+
+            statusButton.disabled = false;
+
+            updateStatusDisplay();
+        }
+
+
+        /* ---------------------------------
+           START
+        --------------------------------- */
+
+        loadStatus();
 
     </script>
 
