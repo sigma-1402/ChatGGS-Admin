@@ -382,16 +382,19 @@
         --------------------------------- */
 
         const SUPABASE_URL =
-            "https://yzzejlfrlecakqrjtimg.supabase.co";
+    "https://yzzejlfrlecakqrjtimg.supabase.co";
 
         const SUPABASE_PUBLISHABLE_KEY =
     "sb_publishable_G7HpAAnLsn2Dal63ginOIw_dcw6eowo";
 
-        const supabaseClient =
-            supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_PUBLISHABLE_KEY
-            );
+        console.log("URL:", SUPABASE_URL);
+console.log("Key starts with:", SUPABASE_PUBLISHABLE_KEY.substring(0, 15));
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+    );
 
 
         let chatGGSOnline = true;
